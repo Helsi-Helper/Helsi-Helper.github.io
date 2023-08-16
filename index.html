@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang='uk-UA'>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Мед процедури</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Мед. процедури</h1>
+    </div>
+    <div id='content' class='container'>
+      <div id='ecg_1' class='card'
+        onkeyup='update_ecg_result()'
+        onchange='update_ecg_result()'>
+        <h2>ЕКГ Результат</h2>
+        <p>
+          <lable for='ecg_p'>P</lable>
+          <input id='ecg_p' type='number' placeholder='0'
+                 min='0' max='99999'>
+          <lable>мс</lable>
+        </p>
+        <p>
+          <lable for='ecg_pq'>PQ</lable>
+          <input id='ecg_pq' type='number' placeholder='0'
+                 min='0' max='99999'>
+          <lable>мс</lable>
+        </p>
+        <p>
+          <lable for='ecg_qrs'>QRS</lable>
+          <input id='ecg_qrs' type='number' placeholder='0'
+                 min='0' max='99999'>
+          <lable>мс</lable>
+        </p>
+        <p>
+          <lable for='ecg_qt'>QT</lable>
+          <input id='ecg_qt' type='number' placeholder='0'
+                 min='0' max='99999'>
+          <lable>мс</lable>
+        </p>
+        <p>
+          <lable for='ecg_qtc'>QTc</lable>
+          <input id='ecg_qtc' type='number' placeholder='0'
+                 min='0' max='99999'>
+          <lable>мс</lable>
+        </p>
+        <p>
+          <lable for='ecg_α'>∠α</lable>
+          <input id='ecg_α' type='number' placeholder='0'
+                 min='0' max='99999'>
+          <lable>°</lable>
+        </p>
+        <p class='result'>
+          <span id='ecg_result'></span>
+          <span class='copy_btn'
+                tooltip='Copy'
+                onclick='copy_to_clipboard(event, ecg_result.textContent)'
+                onmouseleave="restore_tooltip(this, 'Copy')">
+            &#10064
+          </span>
+        </p>
+      </div>
+      <div id='ecg_2' class='card'
+        onkeyup='update_ecg_conclusion()'
+        onchange='update_ecg_conclusion()'>
+        <h2>ЕКГ Заключення</h2>
+        <p>
+          <lable for='ecg_rhythm'>Ритм</lable> 
+          <input id='ecg_rhythm' type='text' placeholder='Правильний'
+                 list='ecg_rhythm_list' size='15'
+                 onmousedown='clear_value(event); update_ecg_conclusion();' />
+          <datalist id='ecg_rhythm_list'>
+            <option value='Тахікардія'>
+            <option value='Брадикардія'>
+          </datalist>
+          <lable></lable>
+        </p>
+        <p>
+          <lable for='ecg_hr'>ЧСС</lable>
+          <input id='ecg_hr' placeholder='0' size='15'>
+          <lable>за хв</lable>
+        </p>
+        <p>
+          <lable for='ecg_eha'>ЕВС</lable>
+          <input id='ecg_eha' type='text' placeholder='Не відхилена'
+                 list='ecg_eha_list' size='15'
+                 onmousedown='clear_value(event); update_ecg_conclusion();' />
+          <datalist id='ecg_eha_list'>
+            <option value='Відхилена вліво'>
+            <option value='Відхилена вправо'>
+            <option value='Горизонтальна'>
+            <option value='Вертикальна'>
+          </datalist>
+          <lable></lable>
+        </p>
+        <p>
+          <lable for='ecg_lvc'>Зміни лівого шлуночка</lable>
+          <input id='ecg_lvc' type='text' placeholder='Відсутні'
+                 list='ecg_lvc_list' size='15'
+                 onmousedown='clear_value(event); update_ecg_conclusion();' />
+          <datalist id='ecg_lvc_list'>
+            <option value='Ознаки збільшення'>
+            <option value='Незначні зміни'>
+            <option value='Помірні зміни'>
+            <option value='Гіпертрофія'>
+          </datalist>
+          <lable></lable>
+        </p>
+        <p>
+          <lable for='ecg_vcc_1'>Зміни шлуночкового комплексу</lable>
+          <input id='ecg_vcc_1' type='text' placeholder='Відсутні'
+                 list='ecg_vcc_list_1' size='15'
+                 onmousedown='clear_value(event); update_ecg_conclusion();' />
+          <datalist id='ecg_vcc_list_1'>
+            <option value='Незначні зміни'>
+            <option value='Помірні зміни'>
+            <option value='Значні зміни'>
+          </datalist>
+          <input id='ecg_vcc_2' type='text' placeholder='відсутні'
+                 list='ecg_vcc_list_2' size='14'
+                 onmousedown='clear_value(event); update_ecg_conclusion();' />
+          <datalist id='ecg_vcc_list_2'>
+            <option value='реполяризації'>
+            <option value='кінцевої частини'>
+          </datalist>
+        </p>
+        <p class='result'>
+          <span id='ecg_conclusion'></span>
+          <span class='copy_btn'
+            tooltip='Copy'
+            onclick="copy_to_clipboard(event, ecg_conclusion.textContent)"
+            onmouseleave="restore_tooltip(this, 'Copy')">
+            &#10064
+          </span>
+        </p>
+      </div>
+      <div id='gfr' class='card'
+        onkeyup='update_gfr()'
+        onchange='update_gfr()'>
+        <h2>ШКФ</h2>
+        <p style='margin-right: 18px;'>
+          <lable for='gfr_sex' style='width: auto;'>Стать</lable>
+          <span class='vertical_radio_group'>
+            <span>
+              <input id='gfr_sex_male' checked 
+                     type='radio' name='sex'
+                     onclick='update_gfr()'>
+              <label onclick='gfr_sex_male.checked=true; update_gfr();'>Чоловік</label>
+            </span>
+            <span>
+              <input id='gfr_sex_female'
+                     type='radio' name='sex'
+                     onclick='update_gfr()'>
+              <label onclick='gfr_sex_female.checked=true; update_gfr();'>Жінка</label>
+            </span>
+          </span>
+        </p>
+        <p>
+          <lable for='gfr_creatinine'>Креатинін</lable>
+          <input id='gfr_creatinine' type='number' placeholder='0'
+                 min='0' max='99999'>
+          <lable>мкмоль/л</lable>
+        </p>
+        <p>
+          <lable for='gfr_age'>Вік</lable>
+          <input id='gfr_age' type='number' placeholder='0'
+                 min='0' max='99999'>
+          <lable>років</lable>
+        </p>
+        <p>
+          <lable for='gfr_mass'>Маса</lable>
+          <input id='gfr_mass' type='number' placeholder='0'
+                 min='0' max='99999'>
+          <lable>кг</lable>
+        </p>
+        <p>
+          <lable for='gfr_height'>Зріст</lable>
+          <input id='gfr_height' type='number' placeholder='0'
+                 min='0' max='99999'>
+          <lable>см</lable>
+        </p>
+        <p class='result'>
+          <span id='gfr_result'></span>
+          <span class='copy_btn'
+                tooltip='Copy'
+                onclick="copy_to_clipboard(event, gfr_result.textContent, 'split')"
+                onmouseleave="restore_tooltip(this, 'Copy')">
+            &#10064
+          </span>
+        </p>
+        <p class='result'>
+          <span id='gfr_conclusion'></span>
+          <span class='copy_btn'
+            tooltip='Copy'
+            onclick="copy_to_clipboard(event, gfr_conclusion.textContent)"
+            onmouseleave="restore_tooltip(this, 'Copy')">
+            &#10064
+          </span>
+        </p>
+      </div>
+    </div>
+  </body>
+</html> 
