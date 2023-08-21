@@ -39,9 +39,12 @@ function update_ecg_result() {
 }
 
 function update_ecg_conclusion() {
-  let conclusion_template = template`${0}. ЧСС - ${1} за хв.${2}${3}${4}`
+  let conclusion_template = template`Ритм синусовий${0}. ЧСС - ${1} за хв.${2}${3}${4}`
 
-  let rhythm = value_by_id('ecg_rhythm') || 'Ритм синусовий правильний'
+  let rhythm = value_by_id('ecg_rhythm')
+  rhythm = rhythm 
+           ? ', ' + rhythm.toLowerCase()
+           : ' правильний'
   let hr = value_by_id('ecg_hr')
   let eha = by_id('ecg_eha').value || by_id('ecg_eha').placeholder 
   let lvc = value_by_id('ecg_lvc')
